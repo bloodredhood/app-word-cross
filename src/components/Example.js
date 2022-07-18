@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import c from "./WordsArea.module.css"
 
 const ProgressEx = () => {
@@ -42,87 +42,38 @@ const ProgressEx = () => {
     </div>
   )
 }
+
+export const colors = [
+  ["#DD57D8", "#83137E"],
+  ["#F19C8D", "#BA4848"],
+  ["#F5D55E", "#A88104"],
+  ["#CAFA50", "#338D4D"],
+  ["#73CD9A", "#2A745F"],
+  ["#1BB0C1", "#105E63"],
+  ["#8169FA", "#231372"],
+  ["#A75CDF", "#3E3470"]
+]
+
+let words = [
+  "eat",
+  "ability",
+  "flash",
+  "landsap",
+  "butts",
+  "pandema",
+  "kindness",
+  "butterly"
+]
+
+
+export let wordsClip = words.map(el => el.toUpperCase()).reverse().map(el => el.split(''))
+console.log(wordsClip)
+
 const Example = (props) => {
-
-  const [pointers, setPointers] = useState()
-
-  const zeroPointers = {
-    lastWordStyle: {},
-    prelastWordStyle: {},
-    arrowCoords: {},
-    handCoords: {}
-  }
-  const firstPointers = {
-    lastWordStyle: {
-      position: "absolute",
-      zIndex: 100,
-    },
-    prelastWordStyle: {},
-    arrowCoords: {
-
-    },
-    handCoords: {
-
-    }
-  }
-
-  const secondPointers = {
-    
-  }
-
-  const colors = [
-    ["#DD57D8", "#83137E"],
-    ["#F19C8D", "#BA4848"],
-    ["#F5D55E", "#A88104"],
-    ["#CAFA50", "#338D4D"],
-    ["#73CD9A", "#2A745F"],
-    ["#1BB0C1", "#105E63"],
-    ["#8169FA", "#231372"],
-    ["#A75CDF", "#3E3470"]
-  ]
-
-  let words = [
-    "eat",
-    "ability",
-    "flash",
-    "landsap",
-    "butts",
-    "pandema",
-    "kindness",
-    "butterly"
-  ]
-
-  //let wordsRev = words.map(el => el.toUpperCase()).reverse()
-
-  let wordsClip = words.map(el => el.toUpperCase()).reverse().map(el => el.split(''))
-  console.log(wordsClip)
-
-  // const vertWord = (arr, i, top, left) => {
-  //   arr[i].map((el, idx) => {
-  //     return <div className={c.letter} style={{
-  //       top: `${idx * 32 + top}px`,
-  //       left: `${left}px`,
-  //       backgroundColor: colors[i][0],
-  //       color: colors[i][1]
-  //     }}>{el}</div>
-  //   })
-  // }
-  // const horizWord = (arr, i, top, left) => {
-  //   arr[i].map((el, idx) => {
-  //     return <div className={c.letter} style={{
-  //       top: `${top}px`,
-  //       left: `${idx * 32 + left}px`,
-  //       backgroundColor: colors[i][0],
-  //       color: colors[i][1]
-  //     }}>{el}</div>
-  //   })
-  // }
-
   return (
     <div style={{
       position: "relative"
     }}>
-      
       <div style={{
         position: "absolute",
         backgroundColor: "black",
@@ -223,37 +174,9 @@ const Example = (props) => {
             })}
           </div>
 
-          <div style={{
-            position: "absolute",
-            zIndex: 100,
-            }}>
-            {wordsClip[6].map((el, idx) => {
-              return <div className={c.letter} style={{
-                top: `${320}px`,
-                left: `${idx * 32}px`,
-                backgroundColor: colors[6][0],
-                color: colors[6][1]
-              }}>{el}</div>
-            })}
-          </div>
 
-          <div style={{
-            position: "absolute",
-            zIndex: 100,
-            }}>
-            {wordsClip[7].map((el, idx) => {
-              return <div className={c.letter} style={{
-                top: `${idx * 32 + 288}px`,
-                left: `${0}px`,
-                backgroundColor: colors[7][0],
-                color: colors[7][1]
-              }}>{el}</div>
-            })}
-          </div>
         </div>
       </div>
-
-
 
     </div>
   )

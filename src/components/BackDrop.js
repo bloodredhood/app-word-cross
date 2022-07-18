@@ -3,6 +3,10 @@ import styles from "./BackDrop.module.css"
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Example from "./Example";
+import hand from "../assets/hand.png"
+import arrow from "../assets/arrow.png"
+import { wordsClip, colors } from "./Example";
+import c from "./WordsArea.module.css"
 
 
 const Close = (props) => {
@@ -40,6 +44,7 @@ const BackDrop = (props) => {
   };
 
   const [modalState, setModalState] = useState({})
+  const [pointers, setPointers] = useState({})
 
   useEffect(() => {
 
@@ -65,20 +70,86 @@ const BackDrop = (props) => {
       translate: translation[0],
       engW: engWord[0],
       title: "Потяни слово",
-      text: "Потяни горізонтальное слово вправо или влево, чтобы освободить следующее слово",
+      text: "Потяни горизонтальное слово вправо или влево, чтобы освободить следующее слово",
       buttonText: "Играть",
       nextState: handleClose
     }
 
-    //text: ["Потяни вертикальное слово", "вверх или вниз, чтобы", "освободить следующее", "слово"],
+    const zeroPointers = {
+      lastWordStyle: null,
+      prelastWordStyle: null,
+      arrowCoords: {
+        position: 'absolute',
+        zIndex: 101,
+        top: 370,
+        left: -3,
+        display: "none",
+      },
+      handCoords: {
+        position: 'absolute',
+        zIndex: 101,
+        top: 410,
+        left: 15,
+        display: "none",
+      },
+      nextState: null
+    }
+    const firstPointers = {
+      lastWordStyle: {
+        position: "absolute",
+        zIndex: 100,
+      },
+      prelastWordStyle: {},
+      arrowCoords: {
+        position: 'absolute',
+        zIndex: 101,
+        top: 370,
+        left: -3
+      },
+      handCoords: {
+        position: 'absolute',
+        zIndex: 101,
+        top: 410,
+        left: 15
+      },
+      nextState: null
+    }
 
+    const secondPointers = {
+      lastWordStyle: {
+        position: "absolute",
+        zIndex: 100,
+      },
+      prelastWordStyle: {},
+      arrowCoords: {
+        position: 'absolute',
+        zIndex: 101,
+        top: 442,
+        left: 228,
+        transform: "rotate(90deg)"
+      },
+      handCoords: {
+        position: 'absolute',
+        zIndex: 101,
+        top: 460,
+        left: 175,
+        transform: "rotate(55deg)"
+      },
+      nextState: null
+    }
+
+    //text: ["Потяни вертикальное слово", "вверх или вниз, чтобы", "освободить следующее", "слово"],
+    let statesArr = [zeroPointers, firstPointers, secondPointers]
     let modalStates = [firstModal, secondModal, thirdModal]
 
+    firstPointers.nextState = () => setPointers(statesArr[1])
+    secondPointers.nextState = () => setPointers(statesArr[2])
     firstModal.nextState = () => setModalState(modalStates[1])
     secondModal.nextState = () => setModalState(modalStates[2])
 
     setTimeout(() => {
       setModalState(modalStates[0])
+      setPointers(statesArr[0])
       handleClickOpen()
     }, 1);
 
@@ -89,38 +160,79 @@ const BackDrop = (props) => {
   }, [])
 
   return (
-    <div className={styles.main}>
-      <div>
-        <Example translation={translation[0]} engWord={engWord[0]} />
-      </div>
-      <div className={styles.modal}>
-        <div
-          className={styles.cross}
-        >
-          <Close
-            onClose={handleClose}
-            open={open}
-          />
-        </div>
-        <div
-          className={styles.title}
-        >
-          {modalState.title}
-        </div>
-        <div
-          className={styles.text}
-        >
-          {modalState.text}
-        </div>
-        <div
-          className={styles.button}
-          onClick={modalState.nextState}
-        >
-          {modalState.buttonText}
-        </div>
+    <div>
+      <div style={pointers.handCoords}>
+        <img src={hand} alt="" />
       </div>
 
+      <div style={pointers.arrowCoords}>
+        <img src={arrow} alt="" />
+      </div>
+
+      <div style={{
+        position: "absolute",
+        zIndex: 96,
+      }}>
+        {wordsClip[6].map((el, idx) => {
+          return <div className={c.letter} style={{
+            top: `${320}px`,
+            left: `${idx * 32}px`,
+            backgroundColor: colors[6][0],
+            color: colors[6][1]
+          }}>{el}</div>
+        })}
+      </div>
+
+      <div style={{
+        position: "absolute",
+        zIndex: 100,
+      }}>
+        {wordsClip[7].map((el, idx) => {
+          return <div className={c.letter} style={{
+            top: `${idx * 32 + 288}px`,
+            left: `${0}px`,
+            backgroundColor: colors[7][0],
+            color: colors[7][1]
+          }}>{el}</div>
+        })}
+      </div>
+
+
+
+      <div className={styles.main}>
+        <div>
+          <Example translation={translation[0]} engWord={engWord[0]} />
+        </div>
+        <div className={styles.modal}>
+          <div
+            className={styles.cross}
+          >
+            <Close
+              onClose={handleClose}
+              open={open}
+            />
+          </div>
+          <div
+            className={styles.title}
+          >
+            {modalState.title}
+          </div>
+          <div
+            className={styles.text}
+          >
+            {modalState.text}
+          </div>
+          <div
+            className={styles.button}
+            onClick={modalState.nextState}
+          >
+            {modalState.buttonText}
+          </div>
+        </div>
+
+      </div>
     </div>
+
   )
 }
 
