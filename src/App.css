@@ -1,0 +1,18 @@
+.App {
+  text-align: center;
+  background-color: rgb(243, 227, 137);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inconsolata', monospace;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  width: 360px;
+  height: 640px;
+  background-color: #CDCDCD;
+}
