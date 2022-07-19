@@ -1,11 +1,10 @@
 import './App.css';
-import TranslateArea from './components/TranslateArea';
-import WordsArea from './components/WordsArea';
 import {useSelector} from "react-redux"
-import ProgressBar from './components/ProgressBar';
-import ModalWindow from './components/ModalWindow'
-import BackDrop from './components/BackDrop';
-
+import {Routes, Route} from 'react-router-dom';
+import WelcomePage from './components/pages/WelcomePage/WelcomePage';
+import SuccessPage from './components/pages/SuccessPage/SuccessPage';
+import Onboarding from './components/pages/Onboarding/Onboarding';
+import Game from './components/pages/Game/Game';
 
 function App() {
   const words = useSelector(state => state.app)
@@ -15,10 +14,13 @@ function App() {
   return (
     <div className="App">
       <div className="container">
-      <BackDrop words={words.wordsForApp}/>
-      <ProgressBar words={words.wordsForApp}/>
-      <TranslateArea words={words.wordsForApp} />
-      <WordsArea words={words.wordsForApp} />
+        <Routes>
+          <Route path="/" element={<WelcomePage />} />
+          <Route path="/onboarding1" element={<Onboarding />} />
+          <Route path="/onboarding2" element={<Onboarding />} />
+          <Route path="/succesoboarding" element={<SuccessPage />} />
+          <Route path="/game" element={<Game />} />
+        </Routes>
       </div>
     </div>
   );
