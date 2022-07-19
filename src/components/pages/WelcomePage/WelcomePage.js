@@ -2,9 +2,11 @@ import React from "react";
 import c from "./WelcomePage.module.css"
 import catProf from "../../../assets/catProf.png"
 import { Navigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 
 const WelcomePage = () => {
+  const navigate = useNavigate();
 
   return (
     <div className={c.container}>
@@ -20,7 +22,7 @@ const WelcomePage = () => {
         </div>
       </div>
 
-      <div className={c.button} onClick={<Navigate to={"/onboarding"} />}>
+      <div className={c.button} onClick={() => navigate('/onboarding')}>
         Начать игру
       </div>
 
